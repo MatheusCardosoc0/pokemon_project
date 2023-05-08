@@ -6,10 +6,8 @@ import useSearchState from '@/context/useSearchState'
 const SearchBar = () => {
 
   const {
-    isSearch,
     searchTerm,
     setSearchTerm,
-    setIsSearch
   } = useSearchState()
 
   return (
@@ -29,23 +27,6 @@ const SearchBar = () => {
           w-[50%]
         '
       />
-
-      <button
-        onClick={() => setIsSearch(!isSearch)}
-        className={`
-          px-1
-          py-3
-          bg-purple-500
-          rounded-full
-          text-white
-          font-bold
-          shadow-shadowButton
-          hover:shadow-shadowButtonHover
-          ${isSearch && 'bg-yellow-500'}
-        `}
-      >
-        Buscar
-      </button>
     </div>
   )
 }

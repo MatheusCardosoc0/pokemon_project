@@ -4,7 +4,7 @@ const Filters = () => {
   return (
     <button
       className='
-        p-4
+        sm:p-4
         rounded-full
         transition-all
         duration-500

@@ -12,11 +12,12 @@ const Logo = () => {
       <Image
         src={iconLogo}
         alt='Icone da logo'
+        priority
         className='
           sm:w-[100px]
           sm:h-[100px]
           w-[80px]
-          h-[80px]
+          h-[60px]
         '
       />
       <h1
