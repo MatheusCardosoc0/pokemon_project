@@ -1,19 +1,28 @@
 import Form from "@/templates/Form-Component";
+import NavbarTemplate from "@/templates/Navbar";
+import PokemonContainerTemplate from "@/templates/Pokemon-Container";
+import axios from "axios";
 
 
 
-export default function Home() {
+export default async function Home() {
+
+
   return (
-    <main
-      className="
+    <>
+      <NavbarTemplate />
+      <main
+        className="
+        h-full
+        w-full
         flex
-        flex-col
-        items-center
         justify-center
-        h-screen
+        items-center
+        mt-60
       "
-    >
-      <Form />
-    </main>
+      >
+        <PokemonContainerTemplate />
+      </main>
+    </>
   )
 }
