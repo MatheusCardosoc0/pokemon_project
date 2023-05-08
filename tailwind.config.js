@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'shadowButton': '1px 1px 2px black',
+        'shadowButtonHover': '0px 0px 3px black'
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

@@ -1,5 +1,6 @@
 "use client"
 
+import useSearchState from "@/context/useSearchState"
 import { api } from "@/util/axiosConfig"
 import axios from "axios"
 import { useEffect, useState } from "react"
@@ -18,26 +19,54 @@ export default function PokemonContainerTemplate() {
   const [pokemons, setPokemons] = useState<any[]>([])
   const [countResults, setCountResults] = useState(20)
 
-  async function AA(){
+  const {
+    isSearch,
+    searchTerm,
+  } = useSearchState()
+
+  async function GetPokemonsBySearchTerm() {
+    const response = await api('?limit=1281')
+
+    const pokemonsWithSearchTerm = response.data.results.filter((pokemon: Pokemon) => pokemon.name.includes(searchTerm));
+
+    const pokemonNames = pokemonsWithSearchTerm.slice(0, 20).map((pokemon: any,) => pokemon);
+
+    setPokemons(pokemonNames);
+  }
+
+  async function GetPokemons() {
     let endpoints = []
     for (let i = 1; i < countResults; i++) {
       endpoints.push(i)
     }
-    const responses = await axios.all(endpoints.map((endpoint) => api.get(`${endpoint}`) ))
+    const responses = await axios.all(endpoints.map((endpoint) => api.get(`/${endpoint}`)))
     const data = responses.map(response => response.data)
 
-    return setPokemons(prevData => [...prevData, ...data])
+    
+    if(isSearch == false){
+      setPokemons(data)
+    }
   }
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
+    if (isSearch == false) {
+      window.addEventListener("scroll", handleScroll)
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  },[pokemons])
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [pokemons])
 
   useEffect(() => {
-    AA()
-  },[countResults])
+    GetPokemons()
+  }, [countResults])
+
+  useEffect(() => {
+    if (isSearch == true) {
+      GetPokemonsBySearchTerm()
+    }else {
+      GetPokemons()
+    }
+  }, [isSearch])
 
   const handleScroll = () => {
     if (
@@ -47,8 +76,6 @@ export default function PokemonContainerTemplate() {
       setCountResults((prevPage) => prevPage + 10);
     }
   };
-
-  console.log(pokemons)
 
   return (
     <div className="w-full h-full flex flex-wrap gap-20 items-center justify-center">
