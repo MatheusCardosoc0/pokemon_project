@@ -6,7 +6,7 @@ import { useGetPokemons } from "@/hooks/useGetPokemons"
 
 export default function PokemonContainerTemplate() {
 
-  const { pokemons } = useGetPokemons()
+  const { pokemons, loading } = useGetPokemons()
 
   return (
     <div
@@ -25,8 +25,8 @@ export default function PokemonContainerTemplate() {
           key={pokemon.name}
           pokemon={pokemon}
         />
-
       ))}
+      {loading && <div>Carregando</div>}
     </div>
   )
 }

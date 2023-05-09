@@ -1,7 +1,11 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Unbounded } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Unbounded({
+  style: 'normal',
+  weight: ['400', '500', '600', '700', '900'],
+  subsets: ['latin']
+})
 
 export const metadata = {
   title: 'Create Next App',

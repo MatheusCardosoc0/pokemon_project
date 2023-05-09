@@ -57,11 +57,13 @@ export default function addIconElementPokemon(type: Elements) {
     <Image
       src={icons[typeName]}
       alt={typeName}
-      width={30}
-      height={30}
+      width={46}
+      height={46}
       className={`
         rounded-full
+        p-1
         ${stylesByType[typeName]}
+        shadow-shadowButton
       `}
     />
   )
