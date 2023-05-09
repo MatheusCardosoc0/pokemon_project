@@ -1,6 +1,6 @@
 "use client"
 
-import Filters from "./Filters"
+import Filters from "./FilterButton"
 import Logo from "./Logo"
 import SearchBar from "./SearchBar"
 
@@ -22,6 +22,7 @@ export default function NavbarTemplate() {
         rounded-bl-full
         rounded-br-full
         items-center
+        z-20
       "
     >
       <Logo />

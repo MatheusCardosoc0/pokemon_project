@@ -1,6 +1,6 @@
 "use client"
 
-import PokemoCard from "@/components/PokemoCard"
+import PokemoCard from "@/templates/Pokemon-Container/PokemoCard"
 import { useGetPokemons } from "@/hooks/useGetPokemons"
 
 
@@ -15,7 +15,9 @@ export default function PokemonContainerTemplate() {
         h-full 
         flex 
         flex-wrap 
-        gap-20
+        gap-16
+        lg:gap-20
+        px-4
         pb-20 
         items-center 
         justify-center

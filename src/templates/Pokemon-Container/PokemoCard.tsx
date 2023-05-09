@@ -1,5 +1,5 @@
 import { Pokemon } from "@/@types/pokemon_type"
-import { pokeball } from '../assets/icons'
+import { pokeball } from '../../assets/icons'
 import addIconElementPokemon from "@/functions/addIconElementPokemon"
 import Image from "next/image"
 import AddBackgroundByPokemonType from "@/functions/addBackgroundByPokemonType"
@@ -16,7 +16,7 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
 
   return (
     <AddBackgroundByPokemonType pokemon={pokemon}
-      
+
     >
       <div className="
         flex

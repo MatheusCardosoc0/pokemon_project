@@ -1,15 +1,21 @@
 interface ButtonProps {
-  text: string
-  type: "button" | "submit" | "reset"
+  label: string
+  type?: "button" | "submit" | "reset"
+  onClick?: () => void
+  disabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
-  text,
-  type
+  label = '',
+  type = 'button',
+  disabled = false,
+  onClick = () => {}
 }) => {
   return (
     <button
       type={type}
+      disabled={disabled}
+      onClick={onClick}
       className="
         bg-gradient-to-tr from-blue-400 via-sky-400 to-cyan-500
         rounded-lg
@@ -22,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
         text-2xl
         hover:brightness-125
       ">
-      {text}
+      {label}
     </button>
   )
 }

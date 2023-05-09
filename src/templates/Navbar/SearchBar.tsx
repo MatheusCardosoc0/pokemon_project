@@ -24,7 +24,8 @@ const SearchBar = () => {
           outline-none
           focus:border-2
           focus:border-yellow-500
-          w-[50%]
+          w-[90%]
+          sm:w-[50%]
         '
       />
     </div>

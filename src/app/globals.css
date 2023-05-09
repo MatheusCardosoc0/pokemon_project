@@ -3,5 +3,14 @@
 @tailwind utilities;
 
 body{
-  @apply bg-background-app 
+  @apply bg-background-app bg-fixed bg-cover overflow-x-hidden
+}
+
+.fluidity{
+  animation: fluidity 1s linear;
+}
+
+@keyframes fluidity {
+  0%{transform: translateX(50%);}
+  50%{transform: translateX(0%);}
 }

@@ -1,6 +1,6 @@
 import { Elements, Pokemon } from '@/@types/pokemon_type'
 
-interface AddBackgroundByPokemonTypeProps{
+interface AddBackgroundByPokemonTypeProps {
   pokemon: Pokemon
   children: React.ReactNode
 }
@@ -34,7 +34,7 @@ export default function AddBackgroundByPokemonType({
   }
 
   return (
-    <div
+    <button
       className={`
         w-[200px]
         h-[300px]
@@ -46,12 +46,15 @@ export default function AddBackgroundByPokemonType({
         justify-center
         rounded-xl
         relative
-        z-[-2]
         brightness-105
         shadow-shadowButton
+        z-10
+        transition-all
+        duration-500
+        hover:scale-110
       `}
     >
       {children}
-    </div>
+    </button>
   )
 }
