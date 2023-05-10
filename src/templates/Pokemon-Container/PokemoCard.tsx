@@ -1,8 +1,8 @@
 import { Pokemon } from "@/@types/pokemon_type"
 import { pokeball } from '../../assets/icons'
-import addIconElementPokemon from "@/functions/addIconElementPokemon"
 import Image from "next/image"
-import AddBackgroundByPokemonType from "@/functions/addBackgroundByPokemonType"
+import { colorsByTypeOfPokemon } from "@/constants/colorsByTypeOfPokemon"
+import CardTypes from "./CardTypes"
 
 interface PokemoCardProps {
   pokemon: Pokemon
@@ -12,11 +12,26 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
   pokemon
 }) => {
 
-
-
   return (
-    <AddBackgroundByPokemonType pokemon={pokemon}
-
+    <button
+      className={`
+      w-[200px]
+      h-[300px]
+      p-1
+      flex
+      flex-col
+      items-center
+      justify-center
+      rounded-xl
+      relative
+      brightness-105
+      shadow-shadowButton
+      z-10
+      transition-all
+      duration-500
+      hover:scale-110
+      ${colorsByTypeOfPokemon[pokemon.types[0].type.name]}
+    `}
     >
       <div className="
         flex
@@ -27,7 +42,7 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
         {pokemon.types.map(type => {
           return (
             <span key={type.slot}>
-              {addIconElementPokemon(type)}
+              <CardTypes type={type} />
             </span>
           )
         })}
@@ -60,7 +75,7 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
       >
         {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1).toLowerCase()}
       </b>
-    </AddBackgroundByPokemonType>
+    </button>
   )
 }
 

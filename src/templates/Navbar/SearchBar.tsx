@@ -1,6 +1,6 @@
 "use client"
 
-import Input from '@/components/Input'
+import Input from '@/components/Inputs/Input'
 import useSearchState from '@/context/useSearchState'
 
 const SearchBar = () => {

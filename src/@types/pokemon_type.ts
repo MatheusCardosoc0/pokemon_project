@@ -1,8 +1,10 @@
+type PokemonsTypes = {
+  name: "normal" | "fighting" | "flying" | "poison" | "ground" | "rock" | "bug" | "ghost" | "steel" | "fire" |"water" | "grass" | "electric" | "psychic" | "ice" | "dragon" | "dark" | "fairy"
+}
+
 type Elements = {
   slot: number
-  type: {
-    name: "normal" | "fighting" | "flying" | "poison" | "ground" | "rock" | "bug" | "ghost" | "steel" | "fire" |"water" | "grass" | "electric" | "psychic" | "ice" | "dragon" | "dark" | "fairy"
-  }
+  type: PokemonsTypes
 }
 
 type Pokemon = {
@@ -20,4 +22,4 @@ type Pokemon = {
   types: Elements[]
 }
 
-export type {Pokemon, Elements}
+export type {Pokemon, Elements, PokemonsTypes}

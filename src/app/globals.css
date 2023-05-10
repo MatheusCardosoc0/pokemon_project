@@ -14,3 +14,12 @@ body{
   0%{transform: translateX(50%);}
   50%{transform: translateX(0%);}
 }
+
+.fluidity-up{
+  animation: fluidity-up 1s linear;
+}
+
+@keyframes fluidity-up {
+  0%{transform: translateY(50%);}
+  50%{transform: translateY(0%);}
+}

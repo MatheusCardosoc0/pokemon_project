@@ -1,15 +1,25 @@
 "use client"
 
+import { PokemonsTypes } from '@/@types/pokemon_type'
+import Select from '@/components/Inputs/Select'
 import { useMenuFilterState } from '@/context/useMenuFilterState'
 import React from 'react'
 
-function FilterMenu() {
+interface FilterMenuProps{
+  type_name: PokemonsTypes[]
+}
+
+function FilterMenu({
+  type_name
+}: FilterMenuProps) {
 
   const { isOpen } = useMenuFilterState()
 
   if(isOpen == false){
     return <div />
   }
+
+  console.log(type_name)
 
   return (
     <div
@@ -28,9 +38,12 @@ function FilterMenu() {
         pr-4
         pl-20
         rounded-tl-[20%]
+        flex
+        flex-col
+        items-end
       '
     >
-      FilterMenuoooo
+      <Select type_names={type_name} />
     </div>
   )
 }
