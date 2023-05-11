@@ -1,5 +1,5 @@
 import { Pokemon } from "@/@types/pokemon_type"
-import { pokeball } from '../../assets/icons'
+import { pokeball, default_pokemon } from '../../assets/icons'
 import Image from "next/image"
 import { colorsByTypeOfPokemon } from "@/constants/colorsByTypeOfPokemon"
 import CardTypes from "./CardTypes"
@@ -47,12 +47,19 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
           )
         })}
       </div>
-      <Image
-        src={pokemon.sprites.other["official-artwork"].front_default}
-        alt="My Image"
-        width={500}
-        height={500}
-      />
+      {pokemon.sprites.other["official-artwork"].front_default ?
+        <Image
+          src={pokemon.sprites.other["official-artwork"].front_default}
+          alt="My Image"
+          width={500}
+          height={500}
+        /> :
+        <Image
+          src={default_pokemon}
+          alt="My Image"
+          width={500}
+          height={500}
+        />}
 
       <Image
         src={pokeball}

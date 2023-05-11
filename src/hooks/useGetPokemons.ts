@@ -1,15 +1,20 @@
 'use client'
 
 import { Pokemon } from '@/@types/pokemon_type'
+import { useCurrentFilterState } from '@/context/useCurrentFilterState'
+import { usePokemonState } from '@/context/usePokemonsState'
 import useSearchState from '@/context/useSearchState'
 import { api } from '@/util/axiosConfig'
 import axios, { AxiosPromise } from 'axios'
 import { useEffect, useState } from 'react'
 
 export const useGetPokemons = () => {
-  const [pokemons, setPokemons] = useState<any[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [countResults, setCountResults] = useState(20)
+
+  const { pokemons, setPokemons } = usePokemonState()
+
+  const { currentElementFilter, isFilter } = useCurrentFilterState()
 
   const { searchTerm } = useSearchState()
 
@@ -17,6 +22,13 @@ export const useGetPokemons = () => {
     setLoading(true)
     try {
       const response = await api('?limit=1281')
+
+      const filteredPokemon = response.data.results.filter(
+        (pokemon: Pokemon) =>
+          pokemon.name !== undefined && pokemon.id !== undefined
+      )
+
+      console.log(filteredPokemon)
 
       const pokemonsWithSearchTerm = response.data.results.filter(
         (pokemon: Pokemon) => pokemon.name.includes(searchTerm)
@@ -43,18 +55,44 @@ export const useGetPokemons = () => {
 
   async function GetPokemons() {
     setLoading(true)
-    try {
-      let endpoints = []
-      for (let i = 1; i < countResults; i++) {
-        endpoints.push(i)
-      }
-      const responses = await axios.all(
-        endpoints.map(endpoint => api.get(`/${endpoint}`))
-      )
-      const data = responses.map(response => response.data)
 
-      if (!!searchTerm == false) {
+    try {
+      if (isFilter == false) {
+        let endpoints = []
+        for (let i = 1; i < countResults; i++) {
+          endpoints.push(i)
+        }
+        const responses = await axios.all(
+          endpoints.map(endpoint => api.get(`/${endpoint}`))
+        )
+        const data = responses.map(response => response.data)
+
         setPokemons(data)
+      }
+
+      if (isFilter == true) {
+
+        let endpoints = []
+        for (let i = 1; i < 1281; i++) {
+          if (i > 1281) {
+            return
+          }
+          endpoints.push(i)
+        }
+
+        const responses = await axios.all(
+          endpoints
+            .slice(0, countResults * 15)
+            .map(endpoint => api.get(`/${endpoint}`))
+        )
+        const data = responses.map(response => response.data)
+
+        const addFilterElement = data.filter(
+          (pokemon: Pokemon) =>
+            pokemon.types[0].type.name === currentElementFilter
+        )
+
+        setPokemons(addFilterElement.slice(0, countResults))
       }
     } catch (error) {
       console.log(error)
@@ -80,8 +118,12 @@ export const useGetPokemons = () => {
   }, [pokemons])
 
   useEffect(() => {
+    setCountResults(20)
+  },[currentElementFilter])
+
+  useEffect(() => {
     GetPokemons()
-  }, [countResults])
+  }, [countResults, currentElementFilter])
 
   useEffect(() => {
     if (!!searchTerm == true) {

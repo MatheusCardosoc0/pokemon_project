@@ -1,16 +1,17 @@
 "use client"
 
-import { PokemonsTypes } from "@/@types/pokemon_type"
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from 'react-icons/fa'
 import { colorsByTypeOfPokemon } from "@/constants/colorsByTypeOfPokemon"
 import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import { pokeball } from "@/assets/icons"
+import { ElementsVariations } from '@/@types/pokemon_type'
+import { useCurrentFilterState } from '@/context/useCurrentFilterState'
 
 
 
 interface SelectProps {
-  type_names: PokemonsTypes[]
+  type_names: ElementsVariations[]
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -18,14 +19,18 @@ const Select: React.FC<SelectProps> = ({
 }) => {
 
   const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(false)
-  const [optionSelected, setOptionSelected] = useState<PokemonsTypes['name']>('normal')
+  
+  const {
+    currentElementFilter,
+    setCurrentElementFilter
+  } = useCurrentFilterState()
 
   const controlModal = useCallback(() => {
     setIsOptionsModalOpen(prev => !prev)
   },[setIsOptionsModalOpen])
 
-  function SetValue (name : PokemonsTypes['name']) {
-    setOptionSelected(name)
+  function SetValue (name : ElementsVariations) {
+    setCurrentElementFilter(name)
     controlModal()
   }
 
@@ -60,7 +65,7 @@ const Select: React.FC<SelectProps> = ({
         "
       >
         <span>
-          {optionSelected}
+          {currentElementFilter}
         </span>
 
         <span
@@ -87,15 +92,16 @@ const Select: React.FC<SelectProps> = ({
             grid-cols-2
             rounded-xl
             overflow-hidden
+            shadow-shadowButton
             fluidity-up
           "
         >
           {type_names.map((type) => (
             <button
-              key={type.name}
-              onClick={() => SetValue(type.name)}
+              key={type}
+              onClick={() => SetValue(type)}
               className={`
-                ${colorsByTypeOfPokemon[type.name]}
+                ${colorsByTypeOfPokemon[type]}
                 p-[0.6rem]
                 cursor-pointer
                 hover:text-transparent
@@ -103,7 +109,7 @@ const Select: React.FC<SelectProps> = ({
                 group
               `}
             >
-              {type.name}
+              {type}
 
               <span 
               className={`

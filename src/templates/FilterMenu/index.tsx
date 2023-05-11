@@ -1,12 +1,12 @@
 "use client"
 
-import { PokemonsTypes } from '@/@types/pokemon_type'
+import { ElementsVariations } from '@/@types/pokemon_type'
 import Select from '@/components/Inputs/Select'
 import { useMenuFilterState } from '@/context/useMenuFilterState'
 import React from 'react'
 
 interface FilterMenuProps{
-  type_name: PokemonsTypes[]
+  type_name: ElementsVariations[]
 }
 
 function FilterMenu({
@@ -32,15 +32,17 @@ function FilterMenu({
         duration-1000
         fluidity
         h-[80%]
-        w-[50%]
+        w-[90%]
+        sm:w-[50%]
         bg-white
         py-6
-        pr-4
-        pl-20
-        rounded-tl-[20%]
+        px-4
+        sm:pl-20
+        sm:rounded-tl-[20%]
         flex
         flex-col
-        items-end
+        items-center
+        sm:items-end
       '
     >
       <Select type_names={type_name} />
