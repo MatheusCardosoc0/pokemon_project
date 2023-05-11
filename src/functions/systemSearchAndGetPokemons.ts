@@ -1,19 +1,25 @@
 'use client'
 
 import { Pokemon } from '@/@types/pokemon_type'
+import { useCurrentFilterState } from '@/context/useCurrentFilterState'
 import { usePokemonState } from '@/context/usePokemonsState'
 import useSearchState from '@/context/useSearchState'
 import { api } from '@/util/axiosConfig'
-import axios, { AxiosPromise } from 'axios'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-export const useGetPokemons = () => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [countResults, setCountResults] = useState(20)
+function SystemSearchAndGetPokemons(){
 
-  const { pokemons, setPokemons } = usePokemonState()
+  const { 
+    pokemons,
+    countResults,
+    loading,
+    setCountResults,
+    setPokemons,
+    setLoading
+  } = usePokemonState()
 
-  
+  const {isFilter} = useCurrentFilterState()
 
   const { searchTerm } = useSearchState()
 
@@ -63,25 +69,12 @@ export const useGetPokemons = () => {
     setLoading(false)
   }
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      setCountResults(prevPage => prevPage + 10)
-    }
-  }
+  
 
   useEffect(() => {
-    if (!!searchTerm == false) {
-      window.addEventListener('scroll', handleScroll)
-
-      return () => window.removeEventListener('scroll', handleScroll)
+    if(isFilter == false){
+      GetPokemons()
     }
-  }, [pokemons])
-
-  useEffect(() => {
-    GetPokemons()
   }, [countResults])
 
   useEffect(() => {
@@ -97,3 +90,5 @@ export const useGetPokemons = () => {
     GetPokemons,
   }
 }
+
+export default SystemSearchAndGetPokemons

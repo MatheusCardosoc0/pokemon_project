@@ -11,7 +11,7 @@ export default function PokemonContainerTemplate() {
     pokemons,
     loading,
     isFilter,
-    GetPokemons,
+    GetFilteredByElementPokemons
   } = useGetPokemons()
 
   return (
@@ -39,7 +39,7 @@ export default function PokemonContainerTemplate() {
       {isFilter == true && pokemons.length <= 10 && (
         <Button
           label="Buscar mais"
-          onClick={() => GetPokemons(10)}
+          onClick={() => GetFilteredByElementPokemons()}
           custom_style="hidden md:block"
         />
       )}
