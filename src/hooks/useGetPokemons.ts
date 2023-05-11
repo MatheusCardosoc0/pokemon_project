@@ -41,6 +41,8 @@ export const useGetPokemons = () => {
     }
   }
 
+  console.log(pokemons)
+
   return {
     pokemons,
     loading,

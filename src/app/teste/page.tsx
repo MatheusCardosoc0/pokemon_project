@@ -1,20 +1,28 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { api } from '@/util/axiosConfig';
+
+interface Pokemon {
+  id: number;
+  name: string;
+  weight: number;
+}
 
 function App() {
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=1281')
-      .then(response => response.json())
+    api.get('?limit=1281')
+      .then(response => response.data)
       .then(data => {
-        const pokemonPromises = data.results.map(result =>
-          fetch(result.url).then(response => response.json())
+        const pokemonPromises = data.results.map((result: { url: string }) =>
+          axios.get(result.url).then(response => response.data)
         );
         Promise.all(pokemonPromises).then(pokemonData => {
           const sortedPokemons = pokemonData.sort(
-            (a, b) => b.weight - a.weight
+            (a: Pokemon, b: Pokemon) => b.weight - a.weight
           );
           setPokemons(sortedPokemons.slice(0, 20));
         });

@@ -5,44 +5,55 @@ import { useCurrentFilterState } from '@/context/useCurrentFilterState'
 import { usePokemonState } from '@/context/usePokemonsState'
 import { api } from '@/util/axiosConfig'
 import axios from 'axios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 function SystemGetFilteringPokemons() {
+
+  const [allPokemons, setAllPokemons] = useState<Pokemon[]>([])
+
   const { pokemons, setPokemons, countResults, loading, setLoading } =
     usePokemonState()
 
   const { currentElementFilter, currentWeightFilter, isFilter } =
     useCurrentFilterState()
 
-  async function GetFilteredByElementPokemons() {
+  async function GetAllPokemons() {
     setLoading(true)
     try {
-      let endpoints = []
-      for (let i = 1; i < 1281; i++) {
-        if (i > 1281) {
-          return
-        }
-        endpoints.push(i)
-      }
+      const response = await api.get('?limit=1281')
 
       const responses = await axios.all(
-        endpoints
-          .slice(0, (countResults + 10) * 15)
-          .map(endpoint => api.get(`/${endpoint}`))
-      )
-      const data = responses.map(response => response.data)
-
-      const addFilterElement = data.filter(
-        (pokemon: Pokemon) =>
-          pokemon.types[0].type.name === currentElementFilter
+        response.data.results.map((pokemon: any) => axios.get(`${pokemon.url}`))
       )
 
-      setPokemons(addFilterElement.slice(0, countResults))
+      const data = responses.map((response: any) => response.data)
+
+      setAllPokemons(data)
     } catch (error) {
       console.log(error)
     }
     setLoading(false)
   }
+
+  console.log(allPokemons)
+
+  async function GetFilteredByElementPokemons() {
+    setLoading(true)
+    try {
+      if(currentElementFilter !== 'All'){
+        const addFilterElement = allPokemons.filter(pokemon => pokemon.types[0].type.name == currentElementFilter)
+
+        setPokemons(addFilterElement.slice(0, countResults))
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    GetAllPokemons()
+  },[])
 
   useEffect(() => {
     if (currentElementFilter !== 'All') {

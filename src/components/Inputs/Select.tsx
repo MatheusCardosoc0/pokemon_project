@@ -41,7 +41,7 @@ const Select: React.FC<SelectProps> = ({
         flex-col
         gap-4
         w-full
-        lg:w-[70%]
+        max-w-[480px]
         text-center
         font-bold
         text-white

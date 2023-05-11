@@ -7,7 +7,7 @@ import { useCurrentFilterState } from '@/context/useCurrentFilterState'
 import { useMenuFilterState } from '@/context/useMenuFilterState'
 import React from 'react'
 
-interface FilterMenuProps{
+interface FilterMenuProps {
   type_name: ElementsVariations[]
 }
 
@@ -21,7 +21,7 @@ function FilterMenu({
     isFilter
   } = useCurrentFilterState()
 
-  if(isOpen == false){
+  if (isOpen == false) {
     return <div />
   }
 
@@ -39,12 +39,12 @@ function FilterMenu({
         fluidity
         h-[80%]
         w-[90%]
-        sm:w-[50%]
+        md:w-[50%]
         bg-white
         py-6
         px-4
         sm:pl-20
-        sm:rounded-tl-[20%]
+        md:rounded-tl-[20%]
         flex
         flex-col
         items-center
@@ -53,7 +53,7 @@ function FilterMenu({
     >
       <Select type_names={type_name} />
 
-      
+
 
       <Button
         label='Resetar filtros'

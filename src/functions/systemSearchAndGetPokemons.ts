@@ -75,7 +75,7 @@ function SystemSearchAndGetPokemons(){
     if(isFilter == false){
       GetPokemons()
     }
-  }, [countResults])
+  }, [countResults, isFilter])
 
   useEffect(() => {
     if (!!searchTerm == true) {
