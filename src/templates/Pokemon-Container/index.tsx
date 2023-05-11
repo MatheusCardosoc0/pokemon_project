@@ -2,11 +2,17 @@
 
 import PokemoCard from "@/templates/Pokemon-Container/PokemoCard"
 import { useGetPokemons } from "@/hooks/useGetPokemons"
+import Button from "@/components/Button"
 
 
 export default function PokemonContainerTemplate() {
 
-  const { pokemons, loading } = useGetPokemons()
+  const {
+    pokemons,
+    loading,
+    isFilter,
+    GetPokemons,
+  } = useGetPokemons()
 
   return (
     <div
@@ -29,6 +35,14 @@ export default function PokemonContainerTemplate() {
         />
       ))}
       {loading && <div>Carregando</div>}
+
+      {isFilter == true && pokemons.length <= 10 && (
+        <Button
+          label="Buscar mais"
+          onClick={() => GetPokemons(10)}
+          custom_style="hidden md:block"
+        />
+      )}
     </div>
   )
 }

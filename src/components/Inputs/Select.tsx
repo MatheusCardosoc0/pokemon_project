@@ -45,12 +45,12 @@ const Select: React.FC<SelectProps> = ({
         text-center
         font-bold
         text-white
+        relative
       "
     >
       <button
         onClick={() => controlModal()}
         className="
-          relative
           group
           cursor-pointer
           p-2
@@ -94,6 +94,9 @@ const Select: React.FC<SelectProps> = ({
             overflow-hidden
             shadow-shadowButton
             fluidity-up
+            absolute
+            top-16
+            w-full
           "
         >
           {type_names.map((type) => (

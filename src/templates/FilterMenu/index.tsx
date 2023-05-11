@@ -1,7 +1,9 @@
 "use client"
 
 import { ElementsVariations } from '@/@types/pokemon_type'
+import Button from '@/components/Button'
 import Select from '@/components/Inputs/Select'
+import { useCurrentFilterState } from '@/context/useCurrentFilterState'
 import { useMenuFilterState } from '@/context/useMenuFilterState'
 import React from 'react'
 
@@ -14,12 +16,16 @@ function FilterMenu({
 }: FilterMenuProps) {
 
   const { isOpen } = useMenuFilterState()
+  const {
+    setResetFilter,
+    isFilter
+  } = useCurrentFilterState()
 
   if(isOpen == false){
     return <div />
   }
 
-  console.log(type_name)
+  console.log(isFilter)
 
   return (
     <div
@@ -46,6 +52,14 @@ function FilterMenu({
       '
     >
       <Select type_names={type_name} />
+
+      
+
+      <Button
+        label='Resetar filtros'
+        onClick={() => setResetFilter()}
+        color='done'
+      />
     </div>
   )
 }
