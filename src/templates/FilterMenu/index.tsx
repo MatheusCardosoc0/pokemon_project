@@ -2,6 +2,7 @@
 
 import { ElementsVariations } from '@/@types/pokemon_type'
 import Button from '@/components/Button'
+import Radio from '@/components/Inputs/Radio'
 import Select from '@/components/Inputs/Select'
 import { useCurrentFilterState } from '@/context/useCurrentFilterState'
 import { useMenuFilterState } from '@/context/useMenuFilterState'
@@ -17,8 +18,10 @@ function FilterMenu({
 
   const { isOpen } = useMenuFilterState()
   const {
-    setResetFilter,
-    isFilter
+    currentWeightFilter,
+    isFilter,
+    setCurrentWeightFilter,
+    setResetFilter
   } = useCurrentFilterState()
 
   if (isOpen == false) {
@@ -49,11 +52,17 @@ function FilterMenu({
         flex-col
         items-center
         sm:items-end
+        gap-8
       '
     >
       <Select type_names={type_name} />
 
-
+      <Radio
+        label={'heavy'}
+        secondaryLabel='light'
+        action={setCurrentWeightFilter}
+        value={currentWeightFilter}
+      />
 
       <Button
         label='Resetar filtros'

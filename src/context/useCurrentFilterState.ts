@@ -9,7 +9,8 @@ interface UseCurrentFilterState {
   currentElementFilter: ElementsVariationWithDefaultValue
   currentWeightFilter: WeightVariations
   setCurrentElementFilter: (value: ElementsVariations) => void
-  setResetFilter: () => void
+  setResetFilter: () => void,
+  setCurrentWeightFilter: (value: WeightVariations) => void
 }
 
 export const useCurrentFilterState = create<UseCurrentFilterState>(set => ({
@@ -23,5 +24,6 @@ export const useCurrentFilterState = create<UseCurrentFilterState>(set => ({
       isFilter: false,
       currentElementFilter: 'All',
       currentWeightFilter: 'none'
-    })
+    }),
+  setCurrentWeightFilter: (value: WeightVariations) => set({currentWeightFilter: value})
 }))

@@ -12,6 +12,7 @@ function SystemSearchAndGetPokemons(){
 
   const { 
     pokemons,
+    allPokemons,
     countResults,
     loading,
     setCountResults,
@@ -26,23 +27,12 @@ function SystemSearchAndGetPokemons(){
   async function GetPokemonsBySearchTerm() {
     setLoading(true)
     try {
-      const response = await api('?limit=1281')
 
-      const pokemonsWithSearchTerm = response.data.results.filter(
+      const pokemonsWithSearchTerm = allPokemons.filter(
         (pokemon: Pokemon) => pokemon.name.includes(searchTerm)
       )
 
-      const pokemonNames = pokemonsWithSearchTerm
-        .slice(0, 30)
-        .map((pokemon: any) => pokemon)
-
-      const responses = await axios.all(
-        pokemonNames.map((pokemon: any) => axios.get(`${pokemon.url}`))
-      )
-
-      const data = responses.map((response: any) => response.data)
-
-      setPokemons(data)
+      setPokemons(pokemonsWithSearchTerm.slice(0, 30))
     } catch (error) {
       console.log(error)
     }
@@ -52,30 +42,15 @@ function SystemSearchAndGetPokemons(){
   async function GetPokemons() {
     setLoading(true)
 
-    try {
-      let endpoints = []
-      for (let i = 1; i < countResults; i++) {
-        endpoints.push(i)
-      }
-      const responses = await axios.all(
-        endpoints.map(endpoint => api.get(`/${endpoint}`))
-      )
-      const data = responses.map(response => response.data)
-
-      setPokemons(data)
-    } catch (error) {
-      console.log(error)
-    }
+      setPokemons(allPokemons.slice(0, countResults))
     setLoading(false)
   }
-
-  
 
   useEffect(() => {
     if(isFilter == false){
       GetPokemons()
     }
-  }, [countResults, isFilter])
+  }, [countResults, isFilter, allPokemons])
 
   useEffect(() => {
     if (!!searchTerm == true) {

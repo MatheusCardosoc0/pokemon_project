@@ -8,40 +8,30 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 function SystemGetFilteringPokemons() {
+  const {
+    pokemons,
+    allPokemons,
+    setAllPokemons,
+    setPokemons,
+    countResults,
+    loading,
+    setLoading
+  } = usePokemonState()
 
-  const [allPokemons, setAllPokemons] = useState<Pokemon[]>([])
-
-  const { pokemons, setPokemons, countResults, loading, setLoading } =
-    usePokemonState()
+  const allPokemonsTest = [...allPokemons]
 
   const { currentElementFilter, currentWeightFilter, isFilter } =
     useCurrentFilterState()
 
-  async function GetAllPokemons() {
-    setLoading(true)
-    try {
-      const response = await api.get('?limit=1281')
-
-      const responses = await axios.all(
-        response.data.results.map((pokemon: any) => axios.get(`${pokemon.url}`))
-      )
-
-      const data = responses.map((response: any) => response.data)
-
-      setAllPokemons(data)
-    } catch (error) {
-      console.log(error)
-    }
-    setLoading(false)
-  }
-
   console.log(allPokemons)
 
-  async function GetFilteredByElementPokemons() {
+  async function AddElementFilter() {
     setLoading(true)
     try {
-      if(currentElementFilter !== 'All'){
-        const addFilterElement = allPokemons.filter(pokemon => pokemon.types[0].type.name == currentElementFilter)
+      if (currentElementFilter !== 'All') {
+        const addFilterElement = allPokemonsTest.filter(
+          pokemon => pokemon.types[0].type.name == currentElementFilter
+        )
 
         setPokemons(addFilterElement.slice(0, countResults))
       }
@@ -51,24 +41,42 @@ function SystemGetFilteringPokemons() {
     setLoading(false)
   }
 
-  useEffect(() => {
-    GetAllPokemons()
-  },[])
+  async function AddWeightFilter() {
+    setLoading(true)
+    
+    if (currentWeightFilter == 'none') {
+
+      setPokemons(allPokemons.slice(0, countResults))
+    }
+
+    if (currentWeightFilter == 'heavy') {
+      const orderByHeavyWeight = allPokemonsTest.sort(
+        (a: Pokemon, b: Pokemon) => b.weight - a.weight
+      )
+
+      setPokemons(orderByHeavyWeight.slice(0, countResults))
+    }
+
+    if (currentWeightFilter == 'light') {
+      const orderByLightWeight = allPokemonsTest.sort(
+        (a: Pokemon, b: Pokemon) => a.weight - b.weight
+      )
+
+      setPokemons(orderByLightWeight.slice(0, countResults))
+    }
+
+    setLoading(false)
+  }
 
   useEffect(() => {
+    AddWeightFilter()
     if (currentElementFilter !== 'All') {
-      GetFilteredByElementPokemons()
+      AddElementFilter()
     }
-  }, [currentElementFilter])
-
-  useEffect(() => {
-    if (currentElementFilter !== 'All') {
-      GetFilteredByElementPokemons()
-    }
-  }, [countResults])
+  }, [currentElementFilter, countResults, currentWeightFilter])
 
   return {
-    GetFilteredByElementPokemons
+    AddElementFilter
   }
 }
 

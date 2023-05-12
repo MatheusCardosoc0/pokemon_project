@@ -3,15 +3,24 @@
 import PokemoCard from "@/templates/Pokemon-Container/PokemoCard"
 import { useGetPokemons } from "@/hooks/useGetPokemons"
 import Button from "@/components/Button"
+import { Pokemon } from "@/@types/pokemon_type"
+
+interface PokemonContainerTemplateProps{
+  allPokemons: Pokemon[]
+}
 
 
-export default function PokemonContainerTemplate() {
+export default function PokemonContainerTemplate({
+  allPokemons
+}: PokemonContainerTemplateProps) {
+
+  
 
   const {
     pokemons,
     loading,
     isFilter,
-    GetFilteredByElementPokemons
+    AddElementFilter
   } = useGetPokemons()
 
   return (
@@ -39,7 +48,7 @@ export default function PokemonContainerTemplate() {
       {isFilter == true && pokemons.length <= 10 && (
         <Button
           label="Buscar mais"
-          onClick={() => GetFilteredByElementPokemons()}
+          onClick={() => AddElementFilter()}
           custom_style="hidden md:block"
         />
       )}

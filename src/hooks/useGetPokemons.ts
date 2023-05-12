@@ -5,6 +5,8 @@ import { usePokemonState } from '@/context/usePokemonsState'
 import useSearchState from '@/context/useSearchState'
 import SystemGetFilteringPokemons from '@/functions/systemGetFilteringPokemons'
 import SystemSearchAndGetPokemons from '@/functions/systemSearchAndGetPokemons'
+import { api } from '@/util/axiosConfig'
+import axios from 'axios'
 import { useEffect } from 'react'
 
 export const useGetPokemons = () => {
@@ -12,15 +14,37 @@ export const useGetPokemons = () => {
 
   const { searchTerm } = useSearchState()
 
-  const { pokemons, countResults, setCountResults } = usePokemonState()
+  const { pokemons, loading, setLoading, allPokemons, setAllPokemons, countResults, setCountResults } = usePokemonState()
 
   const { isFilter } = useCurrentFilterState()
 
   //Functions of Get Data of Api
 
-  const { loading } = SystemSearchAndGetPokemons()
+  SystemSearchAndGetPokemons()
 
-  const { GetFilteredByElementPokemons } = SystemGetFilteringPokemons()
+  const { AddElementFilter } = SystemGetFilteringPokemons()
+
+  async function GetAllPokemons() {
+    setLoading(true)
+    try {
+      const response = await api.get('?limit=1281')
+
+      const responses = await axios.all(
+        response.data.results.map((pokemon: any) => axios.get(`${pokemon.url}`))
+      )
+
+      const data = responses.map((response: any) => response.data)
+
+      setAllPokemons(data)
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    GetAllPokemons()
+  },[])
 
   //Infinite scroll control function
 
@@ -47,6 +71,6 @@ export const useGetPokemons = () => {
     pokemons,
     loading,
     isFilter,
-    GetFilteredByElementPokemons
+    AddElementFilter
   }
 }
