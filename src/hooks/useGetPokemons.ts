@@ -22,7 +22,7 @@ export const useGetPokemons = () => {
 
   SystemSearchAndGetPokemons()
 
-  const { AddElementFilter } = SystemGetFilteringPokemons()
+  const { filterPokemonsByElement } = SystemGetFilteringPokemons()
 
   async function GetAllPokemons() {
     setLoading(true)
@@ -71,6 +71,6 @@ export const useGetPokemons = () => {
     pokemons,
     loading,
     isFilter,
-    AddElementFilter
+    filterPokemonsByElement
   }
 }

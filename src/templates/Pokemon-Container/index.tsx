@@ -4,6 +4,7 @@ import PokemoCard from "@/templates/Pokemon-Container/PokemoCard"
 import { useGetPokemons } from "@/hooks/useGetPokemons"
 import Button from "@/components/Button"
 import { Pokemon } from "@/@types/pokemon_type"
+import Skeleton from "@/components/Skeleton"
 
 interface PokemonContainerTemplateProps{
   allPokemons: Pokemon[]
@@ -20,7 +21,7 @@ export default function PokemonContainerTemplate({
     pokemons,
     loading,
     isFilter,
-    AddElementFilter
+    filterPokemonsByElement
   } = useGetPokemons()
 
   return (
@@ -43,12 +44,12 @@ export default function PokemonContainerTemplate({
           pokemon={pokemon}
         />
       ))}
-      {loading && <div>Carregando</div>}
+      {loading && <Skeleton qt={10} />}
 
       {isFilter == true && pokemons.length <= 10 && (
         <Button
           label="Buscar mais"
-          onClick={() => AddElementFilter()}
+          onClick={() => filterPokemonsByElement()}
           custom_style="hidden md:block"
         />
       )}
