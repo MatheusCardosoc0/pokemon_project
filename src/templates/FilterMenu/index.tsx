@@ -20,8 +20,10 @@ function FilterMenu({
   const {
     currentWeightFilter,
     isFilter,
+    currentHeightFilter,
     setCurrentWeightFilter,
-    setResetFilter
+    setResetFilter,
+    setCurrentHeightFilter
   } = useCurrentFilterState()
 
   if (isOpen == false) {
@@ -62,6 +64,13 @@ function FilterMenu({
         secondaryLabel='light'
         action={setCurrentWeightFilter}
         value={currentWeightFilter}
+      />
+
+      <Radio
+        label={'tall'}
+        secondaryLabel='small'
+        action={setCurrentHeightFilter}
+        value={currentHeightFilter}
       />
 
       <Button

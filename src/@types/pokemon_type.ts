@@ -20,6 +20,7 @@ type Pokemon = {
     }
   }
   weight: number
+  height: number
   types: Elements[]
 }
 

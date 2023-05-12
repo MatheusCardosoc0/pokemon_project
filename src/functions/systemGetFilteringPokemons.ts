@@ -20,7 +20,7 @@ function SystemGetFilteringPokemons() {
 
   const allPokemonsTest = [...allPokemons]
 
-  const { currentElementFilter, currentWeightFilter, isFilter } =
+  const { currentElementFilter, currentHeightFilter, currentWeightFilter, isFilter } =
     useCurrentFilterState()
 
   console.log(allPokemons)
@@ -43,11 +43,6 @@ function SystemGetFilteringPokemons() {
 
   async function AddWeightFilter() {
     setLoading(true)
-    
-    if (currentWeightFilter == 'none') {
-
-      setPokemons(allPokemons.slice(0, countResults))
-    }
 
     if (currentWeightFilter == 'heavy') {
       const orderByHeavyWeight = allPokemonsTest.sort(
@@ -68,12 +63,40 @@ function SystemGetFilteringPokemons() {
     setLoading(false)
   }
 
+  async function AddHeightFilter() {
+    setLoading(true)
+
+    if (currentHeightFilter == 'tall') {
+      const orderByHeavyHeight = allPokemonsTest.sort(
+        (a: Pokemon, b: Pokemon) => b.height - a.height
+      )
+
+      setPokemons(orderByHeavyHeight.slice(0, countResults))
+    }
+
+    if (currentHeightFilter == 'small') {
+      const orderByLightHeight = allPokemonsTest.sort(
+        (a: Pokemon, b: Pokemon) => a.height - b.height
+      )
+
+      setPokemons(orderByLightHeight.slice(0, countResults))
+    }
+
+    setLoading(false)
+  }
+
+  console.log(currentHeightFilter)
+
   useEffect(() => {
+    AddHeightFilter()
     AddWeightFilter()
+    if (currentWeightFilter == 'none' && currentHeightFilter == 'none') {
+      setPokemons(allPokemons.slice(0, countResults))
+    }
     if (currentElementFilter !== 'All') {
       AddElementFilter()
     }
-  }, [currentElementFilter, countResults, currentWeightFilter])
+  }, [currentElementFilter, countResults, currentWeightFilter, currentHeightFilter])
 
   return {
     AddElementFilter
