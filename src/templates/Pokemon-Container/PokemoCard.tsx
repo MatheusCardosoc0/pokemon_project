@@ -14,6 +14,7 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
 
   return (
     <button
+      aria-label={pokemon.name}
       className={`
       w-[200px]
       h-[300px]

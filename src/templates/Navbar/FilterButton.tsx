@@ -12,6 +12,7 @@ const FilterButton = () => {
     <div className='relative'>
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label='Menu'
         className={`
           text-green-500
           sm:mr-4

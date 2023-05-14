@@ -34,6 +34,7 @@ function FilterMenu({
 
   return (
     <div
+      aria-label='filter-menu'
       className='
         fixed
         top-[20%]
@@ -57,6 +58,7 @@ function FilterMenu({
         gap-8
       '
     >
+      <h2>Filtros:</h2>
       <Select type_names={type_name} />
 
       <Radio

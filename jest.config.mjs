@@ -14,7 +14,9 @@ const config = {
   testPathIgnorePatterns: ['/node_modules', '/.next/'],
   modulePaths: ['<rootDir>/src/', '<rootDir>/test'],
   collectCoverage: true,
-  moduleNameMapper: {},
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  },
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/@types/**/*',

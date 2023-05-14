@@ -3,20 +3,10 @@
 import PokemoCard from "@/templates/Pokemon-Container/PokemoCard"
 import { useGetPokemons } from "@/hooks/useGetPokemons"
 import Button from "@/components/Button"
-import { Pokemon } from "@/@types/pokemon_type"
 import Skeleton from "@/components/Skeleton"
 
-interface PokemonContainerTemplateProps{
-  allPokemons: Pokemon[]
-}
 
-
-export default function PokemonContainerTemplate({
-  allPokemons
-}: PokemonContainerTemplateProps) {
-
-  
-
+export default function PokemonContainerTemplate() {
   const {
     pokemons,
     loading,
@@ -48,6 +38,7 @@ export default function PokemonContainerTemplate({
 
       {isFilter == true && pokemons.length <= 10 && (
         <Button
+          aria_label="reload_button"
           label="Buscar mais"
           onClick={() => filterPokemonsByElement()}
           custom_style="hidden md:block"

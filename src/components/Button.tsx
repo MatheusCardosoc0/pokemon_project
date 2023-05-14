@@ -5,10 +5,12 @@ interface ButtonProps {
   disabled?: boolean
   custom_style?: string
   color?: 'default' | 'done' | 'outline'
+  aria_label?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
   label = '',
+  aria_label = '',
   type = 'button',
   disabled = false,
   custom_style,
@@ -24,6 +26,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      aria-label={aria_label || label}
       type={type}
       disabled={disabled}
       onClick={onClick}

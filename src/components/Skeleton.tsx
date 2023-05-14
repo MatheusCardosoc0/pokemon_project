@@ -25,6 +25,8 @@ const Skeleton: React.FC<SkeletonProps> = ({
 
   const skeletonPokemonCard = Array.from({ length: qt }, (_, index) => (
     <button
+      aria-label='Skeleton'
+      id='Skeleton'
       key={index}
       className={`
         w-[200px]
