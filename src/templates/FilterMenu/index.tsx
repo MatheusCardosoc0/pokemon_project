@@ -58,10 +58,11 @@ function FilterMenu({
         gap-8
       '
     >
-      <h2>Filtros:</h2>
+      <h2 className='text-2xl font-bold'>Filtros:</h2>
       <Select type_names={type_name} />
 
       <Radio
+        title='Peso:'
         label={'heavy'}
         secondaryLabel='light'
         action={setCurrentWeightFilter}
@@ -69,6 +70,7 @@ function FilterMenu({
       />
 
       <Radio
+        title='Altura:'
         label={'tall'}
         secondaryLabel='small'
         action={setCurrentHeightFilter}

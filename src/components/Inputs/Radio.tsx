@@ -3,6 +3,7 @@ import React from 'react'
 interface RadioProps {
   value: string
   label: string
+  title: string
   action: (value: any) => void
   secondaryLabel?: string
 }
@@ -10,6 +11,7 @@ interface RadioProps {
 const Radio: React.FC<RadioProps> = ({
   value,
   label,
+  title = '',
   secondaryLabel,
   action,
 }) => {
@@ -24,22 +26,26 @@ const Radio: React.FC<RadioProps> = ({
   }
 
   return (
-    <div
-      className='
+    <>
+    <h3 className='font-bold'>
+      {title}
+    </h3>
+      <div
+        className='
         w-full
         flex
         items-center
         justify-end
         gap-4
       '
-    >
-      <span className='flex items-center gap-2'>
-        <label>
-          {label}
-        </label>
-        <button
-          onClick={() => setAction(label)}
-          className={`
+      >
+        <span className='flex items-center gap-2'>
+          <label>
+            {label}
+          </label>
+          <button
+            onClick={() => setAction(label)}
+            className={`
           w-12
           h-12
           rounded-full
@@ -49,17 +55,17 @@ const Radio: React.FC<RadioProps> = ({
           ${value == label && 'bg-blue-500'}
           ${value !== label && 'bg-neutral-400'}
         `}
-        />
-      </span>
+          />
+        </span>
 
-      {secondaryLabel && (
-        <span className='flex items-center gap-2'>
-          <label>
-            {secondaryLabel}
-          </label>
-          <button
-            onClick={() => setAction(secondaryLabel)}
-            className={`
+        {secondaryLabel && (
+          <span className='flex items-center gap-2'>
+            <label>
+              {secondaryLabel}
+            </label>
+            <button
+              onClick={() => setAction(secondaryLabel)}
+              className={`
               w-12
               h-12
               rounded-full
@@ -69,10 +75,11 @@ const Radio: React.FC<RadioProps> = ({
               ${value == secondaryLabel && 'bg-blue-500'}
               ${value !== secondaryLabel && 'bg-neutral-400'}
             `}
-          />
-        </span>
-      )}
-    </div>
+            />
+          </span>
+        )}
+      </div>
+    </>
   )
 }
 
