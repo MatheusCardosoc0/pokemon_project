@@ -27,9 +27,9 @@ const Radio: React.FC<RadioProps> = ({
 
   return (
     <>
-    <h3 className='font-bold'>
-      {title}
-    </h3>
+      <h3 className='font-bold'>
+        {title}
+      </h3>
       <div
         className='
         w-full
@@ -39,31 +39,33 @@ const Radio: React.FC<RadioProps> = ({
         gap-4
       '
       >
-        <span className='flex items-center gap-2'>
+        <span className='flex items-center gap-2' aria-label={label}>
           <label>
             {label}
           </label>
           <button
+            aria-label={label}
             onClick={() => setAction(label)}
             className={`
-          w-12
-          h-12
-          rounded-full
-          border-4
-          border-white
-          shadow-shadowButtonHover
-          ${value == label && 'bg-blue-500'}
-          ${value !== label && 'bg-neutral-400'}
-        `}
+              w-12
+              h-12
+              rounded-full
+              border-4
+              border-white
+              shadow-shadowButtonHover
+              ${value == label && 'bg-blue-500'}
+              ${value !== label && 'bg-neutral-400'}
+            `}
           />
         </span>
 
         {secondaryLabel && (
-          <span className='flex items-center gap-2'>
+          <span className='flex items-center gap-2' >
             <label>
               {secondaryLabel}
             </label>
             <button
+              aria-label={secondaryLabel}
               onClick={() => setAction(secondaryLabel)}
               className={`
               w-12

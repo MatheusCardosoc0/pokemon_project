@@ -14,6 +14,10 @@ jest.mock('@/hooks/useGetPokemons', () => ({
   })),
 }));
 
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
+
 test('render PokemoCard component', () => {
   
   const view = render(<PokemonContainerTemplate />);

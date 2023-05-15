@@ -22,6 +22,10 @@ type Pokemon = {
   weight: number
   height: number
   types: Elements[]
+  species: {
+    name: string
+    url: string
+  }
 }
 
 export type {Pokemon, Elements, ElementsVariations}

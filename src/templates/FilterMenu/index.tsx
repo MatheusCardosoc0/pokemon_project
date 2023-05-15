@@ -3,7 +3,7 @@
 import { ElementsVariations } from '@/@types/pokemon_type'
 import Button from '@/components/Button'
 import Radio from '@/components/Inputs/Radio'
-import Select from '@/components/Inputs/Select'
+import Select from '@/templates/FilterMenu/Select'
 import { useCurrentFilterState } from '@/context/useCurrentFilterState'
 import { useMenuFilterState } from '@/context/useMenuFilterState'
 import React from 'react'

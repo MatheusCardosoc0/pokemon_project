@@ -1,8 +1,11 @@
+"use client"
+
 import { Pokemon } from "@/@types/pokemon_type"
 import { pokeball, default_pokemon } from '../../assets/icons'
 import Image from "next/image"
 import { colorsByTypeOfPokemon } from "@/constants/colorsByTypeOfPokemon"
 import CardTypes from "./CardTypes"
+import { useRouter } from "next/navigation"
 
 interface PokemoCardProps {
   pokemon: Pokemon
@@ -12,9 +15,12 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
   pokemon
 }) => {
 
+  const router = useRouter()
+
   return (
     <button
       aria-label={pokemon.name}
+      onClick={() => router.push(`/pokemon/${pokemon.id}`)}
       className={`
       w-[200px]
       h-[300px]
@@ -51,13 +57,13 @@ const PokemoCard: React.FC<PokemoCardProps> = ({
       {pokemon.sprites.other["official-artwork"].front_default ?
         <Image
           src={pokemon.sprites.other["official-artwork"].front_default}
-          alt="My Image"
+          alt={pokemon.name}
           width={500}
           height={500}
         /> :
         <Image
           src={default_pokemon}
-          alt="My Image"
+          alt={pokemon.name}
           width={500}
           height={500}
         />}

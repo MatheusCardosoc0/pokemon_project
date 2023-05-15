@@ -101,6 +101,7 @@ const Select: React.FC<SelectProps> = ({
         >
           {type_names.map((type) => (
             <button
+              aria-label={type}
               key={type}
               onClick={() => SetValue(type)}
               className={`
