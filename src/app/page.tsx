@@ -1,6 +1,5 @@
 import { Elements } from "@/@types/pokemon_type";
 import FilterMenu from "@/templates/FilterMenu";
-import LoginModal from "@/templates/LoginModal";
 import NavbarTemplate from "@/templates/Navbar";
 import PokemonContainerTemplate from "@/templates/Pokemon-Container";
 import axios from "axios";
@@ -27,7 +26,6 @@ export default async function Home() {
         relative
       "
       >
-        <LoginModal />
         <FilterMenu type_name={type_name} />
         <PokemonContainerTemplate />
       </main>

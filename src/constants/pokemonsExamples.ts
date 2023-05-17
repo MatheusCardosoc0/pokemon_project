@@ -1,4 +1,4 @@
-import { Pokemon } from "@/@types/pokemon_type";
+import { Pokemon } from '@/@types/pokemon_type'
 
 export const pokemonsExamples: Pokemon[] = [
   {
@@ -9,9 +9,9 @@ export const pokemonsExamples: Pokemon[] = [
       front_default: '',
       other: {
         'official-artwork': {
-          front_default: '',
-        },
-      },
+          front_default: ''
+        }
+      }
     },
     weight: 10,
     height: 20,
@@ -19,9 +19,13 @@ export const pokemonsExamples: Pokemon[] = [
       {
         slot: 1,
         type: {
-          name: 'grass',
-        },
-      },
+          name: 'grass'
+        }
+      }
     ],
+    species: {
+      name: 'Bulbasaur',
+      url: 'https://pokeapi.co/api/v2/pokemon-species/1/'
+    }
   }
 ]
