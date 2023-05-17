@@ -2,6 +2,7 @@ import { Pokemon } from "@/@types/pokemon_type"
 import { colorsByTypeOfPokemon } from "@/constants/colorsByTypeOfPokemon"
 import PokemonPageImage from "@/templates/Pokemon-Page/PokemonPageImage"
 import PokemonPageInfoTable from "@/templates/Pokemon-Page/PokemonPageInfoTable"
+import RedirectButton from "@/templates/Pokemon-Page/RedirectButton"
 import { api } from "@/util/axiosConfig"
 import Image from "next/image"
 
@@ -36,6 +37,7 @@ export default async function PokemonPage({
       <PokemonPageImage pokemon={pokemon} />
       {/* @ts-expect-error Server Component */}
       <PokemonPageInfoTable  pokemon={pokemon} />
+      <RedirectButton />
     </section>
   )
 }

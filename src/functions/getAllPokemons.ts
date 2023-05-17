@@ -12,7 +12,7 @@ export async function GetAllPokemons(){
     setAllPokemons
   } = usePokemonState()
 
-  async function GetAllPokemons() {
+  async function GetPokemons() {
     setLoading(true)
     try {
       const response = await api.get('?limit=1281')
@@ -31,6 +31,6 @@ export async function GetAllPokemons(){
   }
 
   useEffect(() => {
-    GetAllPokemons()
+    GetPokemons()
   },[])
 }
